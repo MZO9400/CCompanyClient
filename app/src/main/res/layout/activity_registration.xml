@@ -28,9 +28,26 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/name"
+            android:id="@+id/name"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:autofillHints="name"
+            app:layout_alignSelf="center" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30sp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="@string/username"
             android:id="@+id/username"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:textColor="@android:color/black"
             android:textStyle="bold"
             android:autofillHints="username"
@@ -59,17 +76,17 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login_button"
+        android:text="@string/register_button"
         android:textStyle="bold"
-        android:id="@+id/login"
+        android:id="@+id/register"
         app:layout_alignSelf="center"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register_button"
+        android:text="@string/login_button"
         android:textStyle="bold"
-        android:id="@+id/register"
+        android:id="@+id/login"
         app:layout_alignSelf="flex_end"/>
 
 </com.google.android.flexbox.FlexboxLayout>
