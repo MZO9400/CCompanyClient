@@ -7,4 +7,5 @@
     <string name="register_button">Sign Up</string>
     <string name="name">Name</string>
     <string name="register">Register your account</string>
+    <string name="open_in_maps">Open in Maps</string>
 </resources>

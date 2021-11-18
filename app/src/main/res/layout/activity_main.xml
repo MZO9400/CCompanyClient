@@ -6,12 +6,22 @@
     android:layout_height="match_parent"
     app:flexWrap="wrap"
     app:justifyContent="center"
+    app:flexDirection="column"
     tools:context=".HomeActivity">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="@string/open_in_maps"
+        android:id="@+id/open_in_maps"
+        app:layout_alignSelf="center"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_button"
+        android:id="@+id/login"
         app:layout_alignSelf="center"
         />
 
