@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CCompany</string>
     <string name="login">Please log in to continue</string>
-    <string name="username">Username</string>
+    <string name="username">E-mail</string>
     <string name="password">Password</string>
     <string name="login_button">Login</string>
 </resources>
