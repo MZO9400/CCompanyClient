@@ -6,4 +6,5 @@
     <string name="login_button">Login</string>
     <string name="register_button">Sign Up</string>
     <string name="name">Name</string>
+    <string name="register">Register your account</string>
 </resources>
