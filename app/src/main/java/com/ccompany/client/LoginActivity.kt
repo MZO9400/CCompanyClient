@@ -21,6 +21,13 @@ class LoginActivity : AppCompatActivity() {
         inputEmail = findViewById(R.id.username)
         inputPassword = findViewById(R.id.password)
 
+        if (intent.getStringExtra("username") != null) {
+            inputEmail.setText(intent.getStringExtra("username"))
+        }
+        if (intent.getStringExtra("password") != null) {
+            inputPassword.setText(intent.getStringExtra("password"))
+        }
+
         btnLogin.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
@@ -28,6 +35,8 @@ class LoginActivity : AppCompatActivity() {
 
         btnRegister.setOnClickListener {
             val intent = Intent(this, RegistrationActivity::class.java)
+            intent.putExtra("username", inputEmail.text.toString())
+            intent.putExtra("password", inputPassword.text.toString())
             startActivity(intent)
         }
     }
