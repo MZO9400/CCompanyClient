@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:text="@string/login_button"
         android:textStyle="bold"
-        android:id="@+id/login"
+        android:id="@+id/login_button"
         app:layout_alignSelf="center"/>
 
     <Button
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:text="@string/register_button"
         android:textStyle="bold"
-        android:id="@+id/register"
+        android:id="@+id/open_registration_page"
         app:layout_alignSelf="flex_end"/>
 
 </com.google.android.flexbox.FlexboxLayout>
