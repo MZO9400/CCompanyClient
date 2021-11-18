@@ -40,9 +40,8 @@ private lateinit var binding: ActivityMapsBinding
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val buic = LatLng(33.7156, 73.0288)
+        mMap.addMarker(MarkerOptions().position(buic).title("Hello Bahria!"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(buic))
     }
 }
