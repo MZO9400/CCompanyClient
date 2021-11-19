@@ -1,12 +1,12 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
-<!-- Generator: https://material.io/resources/color/#!/?view.left=1&view.right=0&primary.color=81D4FA&secondary.color=01579B -->
+<!-- Generator: https://material.io/resources/color/#!/?view.left=0&view.right=1&primary.color=212121&secondary.color=FFEA00 -->
 <resources>
-  <color name="primaryColor">#81d4fa</color>
-  <color name="primaryLightColor">#b6ffff</color>
-  <color name="primaryDarkColor">#4ba3c7</color>
-  <color name="secondaryColor">#01579b</color>
-  <color name="secondaryLightColor">#4f83cc</color>
-  <color name="secondaryDarkColor">#002f6c</color>
-  <color name="primaryTextColor">#000000</color>
-  <color name="secondaryTextColor">#ffffff</color>
+  <color name="primaryColor">#404553</color>
+  <color name="primaryLightColor">#6b707f</color>
+  <color name="primaryDarkColor">#191e2a</color>
+  <color name="secondaryColor">#feee00</color>
+  <color name="secondaryLightColor">#ffff57</color>
+  <color name="secondaryDarkColor">#c6bc00</color>
+  <color name="primaryTextColor">#ffffff</color>
+  <color name="secondaryTextColor">#000000</color>
 </resources>
