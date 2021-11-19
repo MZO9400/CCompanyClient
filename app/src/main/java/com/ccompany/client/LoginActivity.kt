@@ -30,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
+            finish()
             startActivity(intent)
         }
 
@@ -37,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, RegistrationActivity::class.java)
             intent.putExtra("username", inputEmail.text.toString())
             intent.putExtra("password", inputPassword.text.toString())
+            finish()
             startActivity(intent)
         }
     }
