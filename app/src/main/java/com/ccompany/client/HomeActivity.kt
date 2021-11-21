@@ -11,7 +11,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
 
         mBtnLogin = findViewById(R.id.login)
         mBtnMaps = findViewById(R.id.open_in_maps)
