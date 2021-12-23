@@ -17,7 +17,7 @@ class HomeActivity : AppCompatActivity() {
         mBtnMaps = findViewById(R.id.open_in_maps)
 
         mBtnLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, AuthActivity::class.java)
             startActivity(intent)
         }
         mBtnMaps.setOnClickListener {
