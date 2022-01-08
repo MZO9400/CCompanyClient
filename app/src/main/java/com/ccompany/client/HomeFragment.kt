@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,11 +15,13 @@ import com.ccompany.interfaces.Company
 import com.ccompany.service.APIClient
 import com.ccompany.service.APIInterface
 import com.ccompany.service.AuthManager
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
+@DelicateCoroutinesApi
 class HomeFragment : Fragment() {
     private lateinit var mCompaniesData: List<Company>
 

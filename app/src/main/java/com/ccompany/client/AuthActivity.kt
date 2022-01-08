@@ -5,7 +5,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ccompany.interfaces.IAuthPage
 import com.ccompany.service.AuthManager
+import kotlinx.coroutines.DelicateCoroutinesApi
 
+@DelicateCoroutinesApi
 class AuthActivity : AppCompatActivity(), IAuthPage {
     private val fragmentManager = supportFragmentManager
     private var fragmentTransaction = fragmentManager.beginTransaction()

@@ -12,9 +12,11 @@ import com.ccompany.interfaces.IAuthPage
 import com.ccompany.interfaces.LoginResponse
 import com.ccompany.service.AuthManager
 import com.ccompany.service.DBService
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+@DelicateCoroutinesApi
 class LoginFragment : Fragment() {
     private lateinit var btnLogin: Button
     private lateinit var btnRegister: Button
