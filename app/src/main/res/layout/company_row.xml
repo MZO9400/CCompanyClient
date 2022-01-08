@@ -6,14 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:elevation="12dp"
-    card_view:cardCornerRadius="4dp">
+    android:layout_marginHorizontal="8dp"
+    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardElevation="2dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
         android:weightSum="2"
+        android:padding="8dp"
         android:orientation="horizontal">
 
         <ImageView
