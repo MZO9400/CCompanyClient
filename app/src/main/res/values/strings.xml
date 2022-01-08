@@ -9,4 +9,6 @@
     <string name="register">Register your account</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="open_in_maps">Open in Maps</string>
+    <string name="company_logo">Company Logo</string>
+    <string name="phone">Call now</string>
 </resources>
