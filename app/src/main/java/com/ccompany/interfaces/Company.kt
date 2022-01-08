@@ -1,16 +1,20 @@
 package com.ccompany.interfaces
 
-interface Location {
-    val latitude: Double
-    val longitude: Double
-}
+import com.google.gson.annotations.SerializedName
 
-interface Company {
-    val id: String
-    val name: String
-    val address: String
-    val phone: String
-    val logo: String
-    val description: String
+class Company(
+    @SerializedName("id")
+    val id: String,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("address")
+    val address: String,
+    @SerializedName("phone")
+    val phone: String,
+    @SerializedName("logo")
+    val logo: String,
+    @SerializedName("description")
+    val description: String,
+    @SerializedName("geolocation")
     val geolocation: Location
-}
+)
