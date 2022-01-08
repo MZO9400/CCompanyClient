@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
                     mCompaniesData = response.data
                     companiesAdapter = CompaniesAdapter(mCompaniesData)
                     recyclerView.adapter = companiesAdapter
-                    companiesAdapter.notifyDataSetChanged()
+                    companiesAdapter.notifyItemRangeInserted(0, mCompaniesData.size)
                 }
             } catch (e: Exception) {
                 e.message?.let { Log.e("HomeFragment", it) }
