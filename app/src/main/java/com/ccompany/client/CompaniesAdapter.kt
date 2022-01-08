@@ -1,51 +1,45 @@
-package com.ccompany.client;
+package com.ccompany.client
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import androidx.recyclerview.widget.RecyclerView;
-import com.ccompany.interfaces.Company;
-import org.jetbrains.annotations.NotNull;
+import android.graphics.BitmapFactory
+import android.util.Base64
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.ccompany.client.CompaniesAdapter.CompanyViewHolder
+import com.ccompany.interfaces.Company
 
-import java.util.List;
+class CompaniesAdapter(private val companiesList: List<Company>) : RecyclerView.Adapter<CompanyViewHolder>() {
+    class CompanyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var name: TextView
+        var description: TextView
+        var image: ImageView
 
-public class CompaniesAdapter extends
-        RecyclerView.Adapter<CompaniesAdapter.CompanyViewHolder> {
-    final private List<Company> companiesList;
-    public static class CompanyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, description, address;
-        public ImageView phone, image;
-        public CompanyViewHolder(View view) {
-            super(view);
-            name = view.findViewById(R.id.name);
-            description = view.findViewById(R.id.description);
-            address = view.findViewById(R.id.address);
-            phone = view.findViewById(R.id.phone);
-            image = view.findViewById(R.id.image);
+        init {
+            name = view.findViewById(R.id.name)
+            description = view.findViewById(R.id.description)
+            image = view.findViewById(R.id.image)
         }
     }
-    public CompaniesAdapter(List<Company> companiesList) {
-        this.companiesList = companiesList;
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompanyViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.company_row, parent, false)
+        return CompanyViewHolder(itemView)
     }
-    @NotNull
-    @Override
-    public CompanyViewHolder onCreateViewHolder(ViewGroup parent, int
-            viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.company_row, parent, false);
-        return new CompanyViewHolder(itemView);
+
+    override fun onBindViewHolder(holder: CompanyViewHolder, position: Int) {
+        val company = companiesList[position]
+        holder.name.text = company.name
+        holder.description.text = company.description
+        val imageBytes = Base64.decode(company.logo.split(',')[1], Base64.DEFAULT)
+        val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        holder.image.setImageBitmap(decodedImage)
+        holder.image.clipToOutline = true
     }
-    @Override
-    public void onBindViewHolder(CompanyViewHolder holder, int position) {
-        Company company = companiesList.get(position);
-        holder.name.setText(company.getName());
-        holder.description.setText(company.getDescription());
-        holder.address.setText(company.getAddress());
-        holder.image.setImageResource(R.drawable.ic_phone);
-    }
-    @Override
-    public int getItemCount() {
-        return companiesList.size();
+
+    override fun getItemCount(): Int {
+        return companiesList.size
     }
 }
