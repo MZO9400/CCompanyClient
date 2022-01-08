@@ -9,6 +9,11 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.ccompany.interfaces.IAuthPage
+import com.ccompany.interfaces.RegisterResponse
+import com.ccompany.service.AuthManager
+import com.ccompany.service.DBService
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class RegistrationFragment : Fragment() {
     private lateinit var btnLogin: Button
@@ -38,8 +43,28 @@ class RegistrationFragment : Fragment() {
         }
 
         btnRegister.setOnClickListener {
-            Intent(activity, HomeActivity::class.java).apply {
-                activity?.finish()
+            val am = AuthManager(context!!)
+            GlobalScope.launch {
+                val response: RegisterResponse = am
+                    .register(
+                        inputEmail.text.toString(),
+                        inputPassword.text.toString(),
+                        inputName.text.toString()
+                    )
+                if (response.status) {
+                    DBService(context!!).saveUserDetail(
+                        inputEmail.text.toString(),
+                        inputName.text.toString()
+                    )
+                    am.saveToken(response.token)
+                    Intent(activity, HomeActivity::class.java).apply {
+                        activity?.finish()
+                    }
+                } else {
+                    activity?.runOnUiThread {
+                        inputEmail.error = response.message
+                    }
+                }
             }
         }
 
