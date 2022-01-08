@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ccompany.client.RecyclerTouchListener.ClickListener
@@ -47,6 +49,15 @@ class HomeFragment : Fragment() {
                     override fun onClick(view: View, position: Int) {
                         val company: Company = mCompaniesData[position]
                         Log.d("HomeFragment", "Company: " + company.name)
+                        val fragment: Fragment = CompanyFragment()
+                        val bundle = Bundle()
+                        bundle.putParcelable("company", company)
+                        fragment.arguments = bundle
+                        val fragmentManager: FragmentManager = activity!!.supportFragmentManager
+                        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+                        fragmentTransaction.replace(R.id.homeFragmentView, fragment)
+                        fragmentTransaction.addToBackStack(null)
+                        fragmentTransaction.commit()
                     }
 
                     override fun onLongClick(view: View, position: Int) {}
