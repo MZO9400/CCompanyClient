@@ -1,7 +1,12 @@
 package com.ccompany.interfaces
 
-interface RegisterRequest {
-    val email: String
-    val password: String
+import com.google.gson.annotations.SerializedName
+
+class RegisterRequest (
+    @SerializedName("email")
+    val email: String,
+    @SerializedName("password")
+    val password: String,
+    @SerializedName("name")
     val name: String
-}
+)

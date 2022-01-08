@@ -1,7 +1,12 @@
 package com.ccompany.interfaces
 
-interface RegisterResponse {
-    val token: String
-    val status: Boolean
+import com.google.gson.annotations.SerializedName
+
+class RegisterResponse(
+    @SerializedName("token")
+    val token: String,
+    @SerializedName("status")
+    val status: Boolean,
+    @SerializedName("message")
     val message: String
-}
+)

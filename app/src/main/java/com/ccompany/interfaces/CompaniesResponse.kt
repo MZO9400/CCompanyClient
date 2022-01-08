@@ -1,7 +1,12 @@
 package com.ccompany.interfaces
 
-interface CompaniesResponse {
-    val status: Boolean
-    val message: String
+import com.google.gson.annotations.SerializedName
+
+class CompaniesResponse(
+    @SerializedName("status")
+    val status: Boolean,
+    @SerializedName("message")
+    val message: String,
+    @SerializedName("data")
     val data: List<Company>
-}
+)
