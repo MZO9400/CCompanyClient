@@ -1,5 +1,6 @@
 package com.ccompany.client
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import com.ccompany.interfaces.CompaniesResponse
+import com.ccompany.service.APIClient
+import com.ccompany.service.APIInterface
+import com.ccompany.service.AuthManager
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private lateinit var mBtnLogin: Button
@@ -30,6 +37,22 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+        GlobalScope.launch {
+            val response: CompaniesResponse = fetchData(context!!)
+            if (response.status) {
+                response.data.forEach {
+                    println(it.name)
+                }
+            }
+        }
+
         return view
+    }
+
+
+    private suspend fun fetchData(applicationContext: Context): CompaniesResponse {
+        return APIClient.client
+            .create(APIInterface::class.java)
+            .getCompanies("Bearer ${AuthManager(applicationContext).getToken()}")
     }
 }
