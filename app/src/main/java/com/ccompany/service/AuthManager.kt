@@ -1,4 +1,4 @@
-package com.ccompany.auth
+package com.ccompany.service
 
 import android.content.Context
 
