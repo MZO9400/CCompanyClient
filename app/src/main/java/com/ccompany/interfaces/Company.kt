@@ -9,8 +9,8 @@ class Company(
     val name: String,
     @SerializedName("address")
     val address: String,
-    @SerializedName("phone")
-    val phone: String,
+    @SerializedName("phoneNumber")
+    val phoneNumber: String,
     @SerializedName("logo")
     val logo: String,
     @SerializedName("description")

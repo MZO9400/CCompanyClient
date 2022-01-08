@@ -1,6 +1,8 @@
 package com.ccompany.client
 
+import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
@@ -16,11 +18,13 @@ class CompaniesAdapter(private val companiesList: List<Company>) : RecyclerView.
         var name: TextView
         var description: TextView
         var image: ImageView
+        var phone: ImageView
 
         init {
             name = view.findViewById(R.id.name)
             description = view.findViewById(R.id.description)
             image = view.findViewById(R.id.image)
+            phone = view.findViewById(R.id.phone)
         }
     }
 
@@ -37,6 +41,11 @@ class CompaniesAdapter(private val companiesList: List<Company>) : RecyclerView.
         val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
         holder.image.setImageBitmap(decodedImage)
         holder.image.clipToOutline = true
+        holder.phone.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:${company.phoneNumber}")
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
