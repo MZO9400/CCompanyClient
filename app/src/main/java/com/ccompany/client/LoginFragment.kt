@@ -44,17 +44,21 @@ class LoginFragment : Fragment() {
         btnLogin.setOnClickListener {
             val am = AuthManager(context!!)
             GlobalScope.launch {
-                val response: LoginResponse = am.login(inputEmail.text.toString(), inputPassword.text.toString())
-                if (response.status) {
+                try {
+                    val response: LoginResponse = am.login(inputEmail.text.toString(), inputPassword.text.toString())
+                    if (!response.status) {
+                        activity?.runOnUiThread {
+                            inputEmail.error = response.message
+                        }
+                        return@launch
+                    }
                     DBService(context!!).saveUserDetail(response.user.name, response.user.email)
                     am.saveToken(response.token)
                     Intent(activity, HomeActivity::class.java).apply {
                         activity?.finish()
                     }
-                } else {
-                    activity?.runOnUiThread {
-                        inputEmail.error = response.message
-                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
         }

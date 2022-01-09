@@ -47,13 +47,19 @@ class RegistrationFragment : Fragment() {
         btnRegister.setOnClickListener {
             val am = AuthManager(context!!)
             GlobalScope.launch {
-                val response: RegisterResponse = am
-                    .register(
-                        inputEmail.text.toString(),
-                        inputPassword.text.toString(),
-                        inputName.text.toString()
-                    )
-                if (response.status) {
+                try {
+                    val response: RegisterResponse = am
+                        .register(
+                            inputEmail.text.toString(),
+                            inputPassword.text.toString(),
+                            inputName.text.toString()
+                        )
+                    if (!response.status) {
+                        activity?.runOnUiThread {
+                            inputEmail.error = response.message
+                        }
+                        return@launch
+                    }
                     DBService(context!!).saveUserDetail(
                         inputEmail.text.toString(),
                         inputName.text.toString()
@@ -62,10 +68,8 @@ class RegistrationFragment : Fragment() {
                     Intent(activity, HomeActivity::class.java).apply {
                         activity?.finish()
                     }
-                } else {
-                    activity?.runOnUiThread {
-                        inputEmail.error = response.message
-                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
         }
