@@ -2,6 +2,8 @@ package com.ccompany.client
 
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.util.Base64
 import android.view.LayoutInflater
@@ -46,6 +48,11 @@ class CompaniesAdapter(private val companiesList: List<Company>) : RecyclerView.
             intent.data = Uri.parse("tel:${company.phone}")
             holder.itemView.context.startActivity(intent)
         }
+
+        val primaryColor: Int = holder.phone.context.getColor(R.color.primaryColor)
+
+        holder.phone.colorFilter = PorterDuffColorFilter(primaryColor, PorterDuff.Mode.SRC_ATOP)
+
     }
 
     override fun getItemCount(): Int {
