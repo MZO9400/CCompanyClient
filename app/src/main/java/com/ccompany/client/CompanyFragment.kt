@@ -38,9 +38,7 @@ class CompanyFragment : Fragment() {
         }
         company = bundle?.getParcelable("company")!!
 
-        val view: View = setupUI(inflater, container)
-
-        return view
+        return setupUI(inflater, container)
     }
 
     private fun setupUI(inflater: LayoutInflater, container: ViewGroup?): View {
