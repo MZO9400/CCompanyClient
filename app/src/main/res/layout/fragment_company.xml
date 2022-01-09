@@ -15,34 +15,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/textView_company_address"
         >
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-            <ImageView
-                android:id="@+id/imageView_company_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/company_logo"
-                android:layout_gravity="center"
-                android:background="@drawable/circle"
-                android:scaleType="centerCrop" />
-            <ImageView
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:contentDescription="@string/phone"
-                android:layout_gravity="top|end"
-                android:background="@drawable/filled_circle"
-                android:scaleType="centerCrop" />
-            <ImageView
-                android:id="@+id/imageView_company_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|end"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_phone"
-                android:contentDescription="@string/phone" />
-        </FrameLayout>
+
+        <include layout="@layout/phone_with_background" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
