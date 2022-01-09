@@ -48,14 +48,13 @@ class HomeFragment : Fragment() {
                 object : ClickListener {
                     override fun onClick(view: View, position: Int) {
                         val company: Company = mCompaniesData[position]
-                        Log.d("HomeFragment", "Company: " + company.name)
                         val fragment: Fragment = CompanyFragment()
                         val bundle = Bundle()
                         bundle.putParcelable("company", company)
                         fragment.arguments = bundle
                         val fragmentManager: FragmentManager = activity!!.supportFragmentManager
                         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-                        fragmentTransaction.add(R.id.homeFragmentView, fragment)
+                        fragmentTransaction.replace(R.id.homeFragmentView, fragment)
                         fragmentTransaction.addToBackStack(null)
                         fragmentTransaction.commit()
                     }
