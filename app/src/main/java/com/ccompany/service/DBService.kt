@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.ccompany.interfaces.Company
+import com.ccompany.interfaces.Location
 
 
 class DBService
@@ -57,7 +58,7 @@ class DBService
         db.close()
     }
 
-    fun saveCompanyDetail(companies: List<Company>) {
+    fun insertCompanies(companies: List<Company>) {
         for (company in companies) {
             val values = ContentValues()
 
@@ -73,6 +74,40 @@ class DBService
         }
 
         db.close()
+    }
+
+    fun getAllCompanies(): List<Company> {
+        val companies = ArrayList<Company>()
+        val query = "SELECT * FROM $TABLE_COMPANY"
+        try {
+            val cursor = db.rawQuery(query, null)
+
+            if (cursor.moveToFirst()) {
+                do {
+                    val company = Company(
+                        cursor.getString(cursor.getColumnIndex(ID_COL)),
+                        cursor.getString(cursor.getColumnIndex(NAME_COL)),
+                        cursor.getString(cursor.getColumnIndex(ADDRESS_COL)),
+                        cursor.getString(cursor.getColumnIndex(PHONE_COL)),
+                        cursor.getString(cursor.getColumnIndex(LOGO_COL)),
+                        cursor.getString(cursor.getColumnIndex(DESCRIPTION_COL)),
+                        Location(
+                            cursor.getDouble(cursor.getColumnIndex(LATITUDE_COL)),
+                            cursor.getDouble(cursor.getColumnIndex(LONGITUDE_COL))
+                        )
+                    )
+                    companies.add(company)
+                } while (cursor.moveToNext())
+                cursor.close()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            db.execSQL("DROP TABLE IF EXISTS $TABLE_COMPANY")
+            createCompanyTable()
+            db.close()
+        }
+
+        return companies
     }
 
     fun removeCompanyDetail() {

@@ -17,6 +17,7 @@ import com.ccompany.interfaces.Company
 import com.ccompany.service.APIClient
 import com.ccompany.service.APIInterface
 import com.ccompany.service.AuthManager
+import com.ccompany.service.DBService
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -66,25 +67,41 @@ class HomeFragment : Fragment() {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val response: CompaniesResponse = fetchData(context!!)
-                if (response.status) {
-                    mCompaniesData = response.data
-                    companiesAdapter = CompaniesAdapter(mCompaniesData)
-                    recyclerView.adapter = companiesAdapter
-                    companiesAdapter.notifyItemRangeInserted(0, mCompaniesData.size)
-                }
+                mCompaniesData = fetchData(context!!)!!
+                companiesAdapter = CompaniesAdapter(mCompaniesData)
+                recyclerView.adapter = companiesAdapter
+                companiesAdapter.notifyItemRangeInserted(0, mCompaniesData.size)
             } catch (e: Exception) {
                 e.message?.let { Log.e("HomeFragment", it) }
             }
         }
-
         return view
     }
 
+    private suspend fun fetchData(applicationContext: Context): List<Company>? {
+        var companies: List<Company>? = DBService(applicationContext).getAllCompanies()
+        if (companies?.size == 0) {
+            companies = fetchDataFromAPI(applicationContext)
+            if (companies != null) {
+                DBService(applicationContext).insertCompanies(companies)
+            }
+        }
+        return companies
+    }
 
-    private suspend fun fetchData(applicationContext: Context): CompaniesResponse {
-        return APIClient.client
-            .create(APIInterface::class.java)
-            .getCompanies("Bearer ${AuthManager(applicationContext).getToken()}")
+    private suspend fun fetchDataFromAPI(applicationContext: Context): List<Company>? {
+        try {
+            val response: CompaniesResponse = APIClient.client
+                .create(APIInterface::class.java)
+                .getCompanies("Bearer ${AuthManager(applicationContext).getToken()}")
+            return if (response.status) {
+                response.data
+            } else {
+                throw Exception(response.message)
+            }
+        } catch (e: Exception) {
+            e.message?.let { Log.e("fetchData", it) }
+        }
+        return null
     }
 }
