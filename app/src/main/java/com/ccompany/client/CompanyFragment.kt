@@ -14,6 +14,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.ccompany.interfaces.Company
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 
@@ -23,10 +25,10 @@ class CompanyFragment : Fragment() {
 
     private lateinit var companyName: TextView
     private lateinit var companyAddress: TextView
-    private lateinit var companyDescription: TextView
     private lateinit var companyPhone: ImageView
     private lateinit var companyLogo: ImageView
     private lateinit var companyGeolocation: Button
+    private lateinit var chipGroup: ChipGroup
 
 
     override fun onCreateView(
@@ -46,14 +48,26 @@ class CompanyFragment : Fragment() {
 
         companyName = view.findViewById(R.id.textView_company_name)
         companyAddress = view.findViewById(R.id.textView_company_address)
-        companyDescription = view.findViewById(R.id.textView_company_description)
         companyPhone = view.findViewById(R.id.imageView_company_phone)
         companyLogo = view.findViewById(R.id.imageView_company_logo)
         companyGeolocation = view.findViewById(R.id.button_open_in_maps)
+        chipGroup = view.findViewById(R.id.chip_group)
 
         companyName.text = company.name
         companyAddress.text = company.address
-        companyDescription.text = company.description
+
+        company.description
+            .split(",")
+            .toMutableList()
+            .forEach {
+                val chip = Chip(context)
+                chip.text = it.replace("_", " ")
+                chip.setChipBackgroundColorResource(R.color.secondaryColor)
+                chip.setTextColor(resources.getColor(R.color.secondaryTextColor))
+                chip.isClickable = false
+                chipGroup.addView(chip)
+            }
+
 
         companyPhone.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)
