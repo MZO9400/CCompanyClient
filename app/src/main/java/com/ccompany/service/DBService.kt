@@ -104,9 +104,10 @@ class DBService
             e.printStackTrace()
             db.execSQL("DROP TABLE IF EXISTS $TABLE_COMPANY")
             createCompanyTable()
+        }
+        finally {
             db.close()
         }
-
         return companies
     }
 

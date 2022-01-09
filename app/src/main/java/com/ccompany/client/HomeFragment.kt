@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ccompany.client.RecyclerTouchListener.ClickListener
 import com.ccompany.interfaces.CompaniesResponse
 import com.ccompany.interfaces.Company
@@ -18,17 +19,15 @@ import com.ccompany.service.APIClient
 import com.ccompany.service.APIInterface
 import com.ccompany.service.AuthManager
 import com.ccompany.service.DBService
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 @DelicateCoroutinesApi
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var mCompaniesData: List<Company>
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var swipeLayout: SwipeRefreshLayout
     private lateinit var companiesAdapter: CompaniesAdapter
 
     override fun onCreateView(
@@ -38,6 +37,9 @@ class HomeFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
         recyclerView = view.findViewById(R.id.recyclerView)
+        swipeLayout = view.findViewById(R.id.swipe_container)
+        swipeLayout.setOnRefreshListener(this)
+
 
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
@@ -103,5 +105,21 @@ class HomeFragment : Fragment() {
             e.message?.let { Log.e("fetchData", it) }
         }
         return null
+    }
+
+    override fun onRefresh() {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                mCompaniesData = fetchDataFromAPI(context!!)!!
+                DBService(context!!).removeCompanyDetail()
+                DBService(context!!).insertCompanies(mCompaniesData)
+                companiesAdapter = CompaniesAdapter(mCompaniesData)
+                recyclerView.adapter = companiesAdapter
+                companiesAdapter.notifyItemRangeInserted(0, mCompaniesData.size)
+                swipeLayout.isRefreshing = false
+            } catch (e: Exception) {
+                e.message?.let { Log.e("HomeFragment", it) }
+            }
+        }
     }
 }
