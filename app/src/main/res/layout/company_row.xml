@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginHorizontal="8dp"
-    card_view:cardBackgroundColor="@android:color/white"
-    card_view:cardElevation="2dp"
-    card_view:cardUseCompatPadding="true"
-    card_view:cardCornerRadius="8dp">
+    android:layout_margin="8dp"
+    android:clickable="true"
+    card_view:rippleColor="@color/primaryLightColor">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,26 +30,14 @@
             android:layout_weight=".3"
             android:contentDescription="@string/company_logo" />
 
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1.5"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="4dp"
-                android:id="@+id/name"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+            android:textAppearance="?attr/textAppearanceSubtitle1" />
 
         <ImageView
             android:id="@+id/phone"
@@ -62,4 +50,4 @@
             android:contentDescription="@string/phone" />
 
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

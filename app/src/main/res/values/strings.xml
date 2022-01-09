@@ -11,4 +11,6 @@
     <string name="open_in_maps">Open in Maps</string>
     <string name="company_logo">Company Logo</string>
     <string name="phone">Call now</string>
+    <string name="description">Description</string>
+    <string name="address">Address</string>
 </resources>
