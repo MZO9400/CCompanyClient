@@ -43,7 +43,7 @@ class CompaniesAdapter(private val companiesList: List<Company>) : RecyclerView.
         holder.image.clipToOutline = true
         holder.phone.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:${company.phoneNumber}")
+            intent.data = Uri.parse("tel:${company.phone}")
             holder.itemView.context.startActivity(intent)
         }
     }
