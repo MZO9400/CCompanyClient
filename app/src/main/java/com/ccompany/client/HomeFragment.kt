@@ -1,11 +1,10 @@
 package com.ccompany.client
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -34,6 +33,7 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
         recyclerView = view.findViewById(R.id.recyclerView)
@@ -111,7 +111,7 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 mCompaniesData = fetchDataFromAPI(context!!)!!
-                DBService(context!!).removeCompanyDetail()
+                DBService(context!!).insertCompanies(mCompaniesData)
                 DBService(context!!).insertCompanies(mCompaniesData)
                 companiesAdapter = CompaniesAdapter(mCompaniesData)
                 recyclerView.adapter = companiesAdapter
@@ -121,5 +121,23 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 e.message?.let { Log.e("HomeFragment", it) }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.auth, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_item_logout -> {
+                AuthManager(context!!).logout()
+                DBService(context!!).removeUserDetail()
+                val intent = Intent(context, AuthActivity::class.java)
+                startActivity(intent)
+                activity!!.finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
