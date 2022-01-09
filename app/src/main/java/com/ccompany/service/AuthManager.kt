@@ -1,6 +1,7 @@
 package com.ccompany.service
 
 import android.content.Context
+import com.auth0.android.jwt.JWT
 import com.ccompany.interfaces.LoginRequest
 import com.ccompany.interfaces.LoginResponse
 import com.ccompany.interfaces.RegisterRequest
@@ -40,7 +41,16 @@ class AuthManager(context: Context) {
     }
 
     fun isLoggedIn(): Boolean {
-        return getToken() != ""
+        val token: String = getToken()
+        if (token == "")
+            return false
+
+        val jwt = JWT(token)
+        val claim: String = jwt.getClaim("exp").asString() ?: return false
+        val exp: Long = claim.toLong()
+        val now: Long = System.currentTimeMillis() / 1000
+
+        return exp > now
     }
 
     fun saveToken(token: String) {
