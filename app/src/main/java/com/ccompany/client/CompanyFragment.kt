@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import com.ccompany.interfaces.Company
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 
@@ -30,6 +31,13 @@ class CompanyFragment : Fragment() {
     private lateinit var companyGeolocation: Button
     private lateinit var chipGroup: ChipGroup
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exitTransition = MaterialFadeThrough()
+        enterTransition = MaterialFadeThrough()
+        reenterTransition = MaterialFadeThrough()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

@@ -18,7 +18,11 @@ import com.ccompany.service.APIClient
 import com.ccompany.service.APIInterface
 import com.ccompany.service.AuthManager
 import com.ccompany.service.DBService
-import kotlinx.coroutines.*
+import com.google.android.material.transition.MaterialFadeThrough
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 @DelicateCoroutinesApi
@@ -28,6 +32,13 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var swipeLayout: SwipeRefreshLayout
     private lateinit var companiesAdapter: CompaniesAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exitTransition = MaterialFadeThrough()
+        enterTransition = MaterialFadeThrough()
+        reenterTransition = MaterialFadeThrough()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
