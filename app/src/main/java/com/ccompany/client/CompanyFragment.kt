@@ -71,7 +71,7 @@ class CompanyFragment : Fragment() {
                 val chip = Chip(context)
                 chip.text = it.replace("_", " ")
                 chip.setChipBackgroundColorResource(R.color.secondaryColor)
-                chip.setTextColor(resources.getColor(R.color.secondaryTextColor))
+                context?.let { ctx -> chip.setTextColor(ctx.getColor(R.color.secondaryTextColor)) }
                 chip.isClickable = false
                 chipGroup.addView(chip)
             }
